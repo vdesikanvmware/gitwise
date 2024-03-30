@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-with-git
+    appGroup: eKartApp
+    purpose: precious
+  name: app-with-git
+  namespace: voyager-ns
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: app-with-git
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-with-git
+    appGroup: eKartApp
+    purpose: precious
+  name: app-with-git
+  namespace: voyager-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-with-git
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: app-with-git
+    spec:
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registrysecret
+      containers:
+        - image: symphony-docker-local.jfrog.io/ekart/app-with-git:2
+          name: app-with-git
+          ports:
+            - containerPort: 8080
+          env:
+              - name: DB_HOST
+                value: ekart-db
+              - name: DB_PORT
+                value: "3306"
+              - name: DB_USERNAME
+                value: root
+              - name: DB_PASSWORD
+                value: root
+              - name: USER_HOST
+                value: user-app
+              - name: USER_PORT
+                value: "8081"
+              - name: CART_HOST
+                value: cart-app
+              - name: CART_PORT
+                value: "8082"
+              - name: PAYMENT_HOST
+                value: payment-app
+              - name: PAYMENT_PORT
+                value: "8083"
+
+          resources: {}
+status: {}
