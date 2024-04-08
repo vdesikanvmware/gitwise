@@ -23,8 +23,9 @@ spec:
       imagePullSecrets:
         - name: registrysecret
       containers:
-        - image: symphony-docker-local.jfrog.io/ekart/app-with-git:7
+        - image: symphony-docker-local.jfrog.io/ekart/app-with-git:8
           name: app-with-git
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
