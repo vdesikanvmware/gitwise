@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  annotations:
+    apps.tanzu.vmware.com/promotable: ""
+    apps.tanzu.vmware.com/promote-group: ContainerApp/gitwise
+  name: gitwise-http-route
+spec:
+  parentRefs:
+  - group: networking.tanzu.vmware.com
+    kind: Entrypoint
+    name: gitwise
+  rules:
+  - backendRefs:
+    - kind: Service
+      name: gitwise
+      port: 8080
